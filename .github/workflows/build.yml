@@ -1,0 +1,114 @@
+name: Build Persian Learning App
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  # ═══════════════════════════════════════════════════════
+  #  Windows 构建
+  # ═══════════════════════════════════════════════════════
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller pyqt6 PyQt6-WebEngine requests beautifulsoup4 lxml
+
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --onefile --windowed `
+            --add-data "data;data" `
+            --hidden-import=PyQt6.QtWebEngineWidgets `
+            --hidden-import=PyQt6.QtWebChannel `
+            --hidden-import=bs4 `
+            --hidden-import=lxml `
+            --hidden-import=aiohttp `
+            --name="PersianLearning" `
+            main.py
+
+      - name: Zip for distribution
+        run: |
+          Compress-Archive -Path "dist/PersianLearning.exe" -DestinationPath "PersianLearning-Windows.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PersianLearning-Windows
+          path: PersianLearning-Windows.zip
+
+  # ═══════════════════════════════════════════════════════
+  #  macOS 构建
+  # ═══════════════════════════════════════════════════════
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller pyqt6 PyQt6-WebEngine requests beautifulsoup4 lxml
+
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --onedir --windowed \
+            --add-data "data:data" \
+            --hidden-import=PyQt6.QtWebEngineWidgets \
+            --hidden-import=PyQt6.QtWebChannel \
+            --hidden-import=bs4 \
+            --hidden-import=lxml \
+            --hidden-import=aiohttp \
+            --name="PersianLearning" \
+            --osx-bundle-identifier=com.persianlearning.app \
+            main.py
+
+      - name: Add icon to .app (optional — just info.plist)
+        run: |
+          APP="dist/PersianLearning.app"
+          # 设置 Info.plist 中的显示名
+          /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName 波斯语学习助手" "$APP/Contents/Info.plist" 2>/dev/null || true
+          /usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string 10.15" "$APP/Contents/Info.plist" 2>/dev/null || true
+
+      - name: Zip .app bundle
+        run: |
+          cd dist
+          zip -r ../PersianLearning-macOS.zip PersianLearning.app
+          cd ..
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PersianLearning-macOS
+          path: PersianLearning-macOS.zip
+
+  # ═══════════════════════════════════════════════════════
+  #  创建 GitHub Release（只在打 tag 时触发）
+  # ═══════════════════════════════════════════════════════
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build-windows, build-macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            PersianLearning-Windows/PersianLearning-Windows.zip
+            PersianLearning-macOS/PersianLearning-macOS.zip
+          generate_release_notes: true

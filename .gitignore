@@ -1,0 +1,26 @@
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual env
+venv/
+.venv/
+
+# User data (runtime generated)
+data/bookmarks.json
+data/vocabulary.json
