@@ -46,6 +46,13 @@ jobs:
           name: PersianLearning-Windows
           path: PersianLearning-Windows.zip
 
+      - name: Upload to Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: PersianLearning-Windows.zip
+          generate_release_notes: true
+
   # ═══════════════════════════════════════════════════════
   #  macOS 构建
   # ═══════════════════════════════════════════════════════
@@ -88,22 +95,9 @@ jobs:
           name: PersianLearning-macOS
           path: PersianLearning-macOS.zip
 
-  # ═══════════════════════════════════════════════════════
-  #  创建 GitHub Release（只在打 tag 时触发）
-  # ═══════════════════════════════════════════════════════
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: [build-windows, build-macos]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: Create GitHub Release
+      - name: Upload to Release
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            artifacts/PersianLearning-Windows/PersianLearning-Windows.zip
-            artifacts/PersianLearning-macOS/PersianLearning-macOS.zip
+          files: PersianLearning-macOS.zip
           generate_release_notes: true
