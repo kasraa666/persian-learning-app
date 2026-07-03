@@ -65,7 +65,7 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --onedir --windowed \
+          pyinstaller --onefile --windowed \
             --add-data "data:data" \
             --hidden-import=PyQt6.QtWebEngineWidgets \
             --hidden-import=PyQt6.QtWebChannel \
@@ -76,17 +76,10 @@ jobs:
             --osx-bundle-identifier=com.persianlearning.app \
             main.py
 
-      - name: Add icon to .app (optional — just info.plist)
-        run: |
-          APP="dist/PersianLearning.app"
-          # 设置 Info.plist 中的显示名
-          /usr/libexec/PlistBuddy -c "Set :CFBundleDisplayName 波斯语学习助手" "$APP/Contents/Info.plist" 2>/dev/null || true
-          /usr/libexec/PlistBuddy -c "Add :LSMinimumSystemVersion string 10.15" "$APP/Contents/Info.plist" 2>/dev/null || true
-
-      - name: Zip .app bundle
+      - name: Zip for distribution
         run: |
           cd dist
-          zip -r ../PersianLearning-macOS.zip PersianLearning.app
+          zip -r ../PersianLearning-macOS.zip PersianLearning
           cd ..
 
       - name: Upload artifact
