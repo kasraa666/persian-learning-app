@@ -21,6 +21,9 @@ Thumbs.db
 venv/
 .venv/
 
-# User data (runtime generated)
-data/bookmarks.json
-data/vocabulary.json
+# User data (runtime generated — ignore the copies, keep templates)
+data/bookmarks_*.json
+data/bookmarks.json.bak
+data/vocabulary.json.bak
+data/*_full*.html
+data/radiofarda_struct*.json
