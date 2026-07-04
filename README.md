@@ -18,48 +18,6 @@ A desktop app for learning Persian (Farsi) — dictionary lookup, news reading, 
 | Platform | Download |
 |----------|----------|
 | 🪟 **Windows** | [PersianLearning-Windows.zip](https://github.com/YOUR_USERNAME/persian-learning-app/releases/latest/download/PersianLearning-Windows.zip) |
-| 🍎 **macOS** | [PersianLearning-macOS.zip](https://github.com/YOUR_USERNAME/persian-learning-app/releases/latest/download/PersianLearning-macOS.zip) |
-
-> **macOS users**: After unzipping, drag `PersianLearning.app` to the Applications folder. On first launch, right-click → **Open** (since this app is not notarized by Apple).
-
----
-
-## 🚀 Quick Start (from source)
-
-```bash
-# 1. Clone
-git clone https://github.com/YOUR_USERNAME/persian-learning-app.git
-cd persian-learning-app
-
-# 2. Install dependencies
-pip install pyqt6 PyQt6-WebEngine requests beautifulsoup4 lxml
-
-# 3. Run
-python main.py
-```
-
----
-
-## 🛠 Build (from source)
-
-```bash
-pip install pyinstaller
-
-# Windows
-pyinstaller --onefile --windowed --add-data "data;data" \
-  --hidden-import=PyQt6.QtWebEngineWidgets \
-  --hidden-import=PyQt6.QtWebChannel \
-  --hidden-import=bs4 --hidden-import=lxml --hidden-import=aiohttp \
-  --name="PersianLearning" main.py
-
-# macOS
-pyinstaller --onedir --windowed --add-data "data:data" \
-  --hidden-import=PyQt6.QtWebEngineWidgets \
-  --hidden-import=PyQt6.QtWebChannel \
-  --hidden-import=bs4 --hidden-import=lxml --hidden-import=aiohttp \
-  --name="PersianLearning" \
-  --osx-bundle-identifier=com.persianlearning.app main.py
-```
 
 ---
 
