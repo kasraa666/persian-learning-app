@@ -17,7 +17,7 @@ A desktop app for learning Persian (Farsi) — dictionary lookup, news reading, 
 
 | Platform | Download |
 |----------|----------|
-| 🪟 **Windows** | [PersianLearning-Windows.zip](https://github.com/YOUR_USERNAME/persian-learning-app/releases/latest/download/PersianLearning-Windows.zip) |
+| 🪟 **Windows** | [PersianLearning-Windows.zip]([https://github.com/kasraa666/persian-learning-app/releases/latest/download/win_persian-learning-app.zip]) |
 
 ---
 
