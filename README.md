@@ -3,11 +3,15 @@
 A PyQt6 desktop application for learning Persian (Farsi) — dictionary lookup, news reading, curated learning resources, and vocabulary management, all in one place.
 
 <p align="center">
-  <em>Screenshots here</em>
+
   <img width="884" height="632" alt="屏幕截图 2026-07-03 194716" src="https://github.com/user-attachments/assets/785e7163-f112-4736-9a1f-ea88c024f41d" />
+  
   <img width="881" height="633" alt="屏幕截图 2026-07-03 194814" src="https://github.com/user-attachments/assets/bd153e7d-753e-4435-8b5f-4e7d122c0f26" />
+  
   <img width="879" height="633" alt="屏幕截图 2026-07-03 194842" src="https://github.com/user-attachments/assets/3cc57c58-dd22-4dc7-a043-ff914925fab4" />
+  
   <img width="882" height="634" alt="屏幕截图 2026-07-03 194909" src="https://github.com/user-attachments/assets/d914f25c-42e7-4f96-bade-a0c0ed76052e" />
+  
 </p>
 
 ---
